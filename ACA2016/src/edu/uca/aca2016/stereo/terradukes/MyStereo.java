@@ -5,6 +5,9 @@
  */
 package edu.uca.aca2016.stereo.terradukes;
 import edu.uca.aca2016.interfaces.Stereo;
+import edu.uca.aca2016.interfaces.StereoExtended;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -19,7 +22,7 @@ import java.util.ArrayList;
     
 //my
 
-public class MyStereo implements Stereo{
+public class MyStereo implements StereoExtended{
     //implement list
     //stereo status
     //is usb loaded
@@ -135,6 +138,29 @@ public class MyStereo implements Stereo{
 	public boolean isPaused() {
 	   return status == Status.PAUSED;
 	}
+ //*
+        
+        
+
+    @Override
+    public void loadTrackList(File trackListSource) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void play() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public ArrayList<String> getTrackList() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getCurrentTrackFileName() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
     //status
  enum Status {
