@@ -186,7 +186,17 @@ public class ChinookManager{
             }
                 return q;
         }
-        
+        public void loadBatchArtist(File f, int column) throws FileNotFoundException, SQLException{
+            PreparedStatement ps = null;
+            String line = "";
+            String SplitBy = ",";
+            
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(f));
+                String sql = "INSERT INTO Artist WHERE Values = (?)";
+                ps = con.pr
+            
+            
    
 
 }
