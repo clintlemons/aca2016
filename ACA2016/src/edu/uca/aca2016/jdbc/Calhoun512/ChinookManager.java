@@ -10,6 +10,7 @@ package edu.uca.aca2016.jdbc.Calhoun512;
  * @author calho
  */
 
+import java.io.BufferedReader;
 import java.sql.*;
 import java.io.File;
 import java.nio.file.Path;
@@ -20,6 +21,8 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 
 /**
  *
@@ -186,6 +189,7 @@ public class ChinookManager{
             }
                 return q;
         }
+    
         public void loadBatchArtist(File f, int column) throws FileNotFoundException, SQLException{
             PreparedStatement ps = null;
             String line = "";
@@ -194,10 +198,12 @@ public class ChinookManager{
             try {
                 BufferedReader br = new BufferedReader(new FileReader(f));
                 String sql = "INSERT INTO Artist WHERE Values = (?)";
-                ps = con.pr
+                ps = con.prepareStatement(sql);
+                
             
             
-   
+                 }
 
 }
         
+}
