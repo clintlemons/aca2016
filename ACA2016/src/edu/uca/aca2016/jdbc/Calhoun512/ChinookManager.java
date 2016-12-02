@@ -33,6 +33,7 @@ public class ChinookManager{
     Connection con;
 
     private Properties chinook = new Properties();
+    private Object logger;
     
     /**
      *
@@ -118,7 +119,7 @@ public class ChinookManager{
                     ps.close();
                 }
            }
-            //Logger.log(Level.INFO, "Return Artist Id:" + ArtistId);
+            
             return ArtistId;
         }
     
@@ -190,20 +191,35 @@ public class ChinookManager{
                 return q;
         }
     
-        public void loadBatchArtist(File f, int column) throws FileNotFoundException, SQLException{
+        public void loadBatchArtist(File f, int column) throws FileNotFoundException, SQLException, IOException{
             PreparedStatement ps = null;
             String line = "";
-            String SplitBy = ",";
+            String cvsSplitBy = ",";
+            String sql = "INSERT INTO Artist WHERE Values = (?)";
+            String[] ArtSet;
+            ps = con.prepareStatement(sql);
+                       
             
             try {
                 BufferedReader br = new BufferedReader(new FileReader(f));
-                String sql = "INSERT INTO Artist WHERE Values = (?)";
-                ps = con.prepareStatement(sql);
-                
+                    while ((line = br.readLine()) != null) {
+                        
+                        ArtSet = line.split(cvsSplitBy);
+                        
+                        
+                        ps.setString(1, ArtSet[column]);
+                        ps.addBatch();
+                    }
+                    ps.executeBatch();
+                    ps.close();
+                    br.close();
+             
+            }finally {
+                        
+                    }
             
             
                  }
 
 }
         
-}
