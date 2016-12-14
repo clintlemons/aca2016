@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 public class ChinookGenreManager {
     Connection con = null;
     private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
-    
+    private static final String p_path = "C:\\ChinookDatabase1.4_Sqlite\\aca2016\\resources\\config\\coopecor\\ChinookManager.properties";
     /**
      * Creates a connection to an instance of the Chinook database. 
      * 
@@ -37,10 +37,13 @@ public class ChinookGenreManager {
      * the classpath at resources/config/coopecor/ChinookGenreManager.properties
      */
 public ChinookGenreManager(){
+        
+    
         try{
             // attempt to read a "known" properties file that is on the classpath
-            Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/coopecor/ChinookManager.properties");
-            InputStream stream = new FileInputStream(url.nextElement().getPath());
+            //Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/coopecor/ChinookManager.properties");
+            
+            InputStream stream = new FileInputStream(File p_path);
             Properties props = new Properties();
             props.load(stream);
             stream.close();
