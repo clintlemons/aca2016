@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.uca.aca2016.stereo.cpfiles;
+package edu.uca.aca2016.stereo.calhoun512;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author cfiles
+ * @author calho
  */
 public class MyStereoTest{
     private MyStereo stereo;
