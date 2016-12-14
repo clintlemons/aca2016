@@ -6,6 +6,7 @@
 package edu.uca.aca2016.chinook.coopecor;
 
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,16 +38,14 @@ public class ChinookGenreManager {
      * the classpath at resources/config/coopecor/ChinookGenreManager.properties
      */
 public ChinookGenreManager(){
-        
-    
         try{
             // attempt to read a "known" properties file that is on the classpath
             //Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/coopecor/ChinookManager.properties");
-            
-            InputStream stream = new FileInputStream(File p_path);
+            File prop = new File (p_path);
+            FileInputStream(prop);
             Properties props = new Properties();
-            props.load(stream);
-            stream.close();
+            props.load(p_path);
+            prop.close();
             
             logger.info("Connecting to database: " + props.getProperty("jbdc.connection"));
             
@@ -131,7 +130,12 @@ public boolean addGenre(String name) {
          try{
             PreparedStatement ps = this.con.prepareStatement("INSERT INTO Genre (Name) VALUES(?)");
             ps.setString(1, name);
-            ps.executeUpdate();
+            int ra = ps.executeUpdate();
+            
+            if (ra == 1) {
+            ret = true;
+            }
+            
             ps.close();
         }
         catch(SQLException ex){
@@ -155,14 +159,14 @@ public String getGenreName(int id) {
             // if there is a record, get the genre id to return
             if (rs.next()) {
                 ret = rs.getString("Name");
-                logger.info("Search by id for genre '" + id + "' yielded an name of " + ret);
+                //logger.info("Search by id for genre '" + id + "' yielded an name of " + ret);
             }
             else {
-                logger.info("Search for genre '" + id + "' yielded no results");
+                //logger.info("Search for genre '" + id + "' yielded no results");
             }
         }
         catch(SQLException ex){
-            logger.severe("Issue searching for genre: " + ex.getMessage());
+            //logger.severe("Issue searching for genre: " + ex.getMessage());
         }
 
         // send back null or the name
@@ -220,6 +224,17 @@ public boolean deleteGenre(int id) {
     public static void main(String[] args)
     {
         ChinookGenreManager jdbc = new ChinookGenreManager();
+        jdbc.getGenres();
+        jdbc.addGenre(p_path);
+        System.out.println(jdbc.getGenreName(5));
+        jdbc.updateGenre(7, p_path);
+        jdbc.deleteGenre(8);
+        
+        
+    }
+
+    private void FileInputStream(File prop) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
 
