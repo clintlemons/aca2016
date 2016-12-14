@@ -129,10 +129,52 @@ public String getGenreName (int id) throws SQLException {
     return ret;
 }
 
+public boolean updateGenre(int id, String name) throws SQLException{
+    boolean ret = false;
+    
+    try {
+        PreparedStatement ps = this.con.prepareStatement("UPDATE Genre SET NAME = ? Where GenreId = ?");
+        ps.setString(1,name);
+        ps.setInt(2, id);
+        int ra = ps.executeUpdate();
+        
+        if (ra == 1){
+        ret = true;
+        logger.info("Updated Genre with id " + id + "set name to '" + name + "'");
+        }
+        else {
+            logger.warning("Genre Update of" + id + " had an unexpected result and changed " + ra + " records");
+    }
+    } catch(SQLException ex) {
+         logger.severe("Error updating Genre: " + ex.getMessage());
+}
 
-public static void main(String[] args) {
-ChinookGenreManager cm = new ChinookGenreManager();
+        return ret;
+}
+
+public boolean deleteGenre(int id) throws SQLException{
+    boolean ret = false;
+    
+    try{
+        PreparedStatement ps = this.con.prepareStatement("DELETE FROM Genre WHERE GenreId = ?");
+        ps.setInt(1, id);
+        int ra = ps.executeUpdate();
+        ps.close();
+        
+        if (ra == 1){
+            ret = true;
+            logger.info("Deleted Genre with ID " + id);
+        }else {
+            logger.warning("Failed to delete Genre " + id + " changed " + ra + " records");
+        }
+    }catch(SQLException ex) {
+        logger.severe("Issue deleting Genre: " + ex.getMessage());
+    }
+    return ret;
+}
+
+
+
 
 }
 
-}
