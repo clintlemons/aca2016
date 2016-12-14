@@ -143,10 +143,10 @@ public boolean updateGenre(int id, String name) throws SQLException{
         logger.info("Updated Genre with id " + id + "set name to '" + name + "'");
         }
         else {
-            logger.warning("Genre Update of" + id + " had an unexpected result and changed " + ra + " records");
+            logger.warning("Genre update of" + id + " had an unexpected result and changed " + ra + " records");
     }
     } catch(SQLException ex) {
-         logger.severe("Error updating Genre: " + ex.getMessage());
+         logger.severe("Error updating genre: " + ex.getMessage());
 }
 
         return ret;
