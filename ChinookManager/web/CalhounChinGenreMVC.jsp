@@ -50,7 +50,7 @@
         </tr>
       </thead>
       <tbody>
-      <c:forEach items="${artists}" var="artist">
+      <c:forEach items="${genres}" var="genre">
         <tr>
           <td>${Genre.key}</td>
           <td>${Genre.value}</td>
