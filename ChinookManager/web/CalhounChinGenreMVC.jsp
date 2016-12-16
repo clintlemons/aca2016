@@ -52,9 +52,9 @@
       <tbody>
       <c:forEach items="${genres}" var="genre">
         <tr>
-          <td>${Genre.key}</td>
-          <td>${Genre.value}</td>
-          <td><a href="?do=Edit&id=${Genre.key}">Edit</a> <a href="?do=Delete&id=${Genre.key}">Delete</a></td>
+          <td>${genre.key}</td>
+          <td>${genre.value}</td>
+          <td><a href="?do=Edit&id=${genre.key}">Edit</a> <a href="?do=Delete&id=${genre.key}">Delete</a></td>
         </tr>
       </c:forEach>
       </tbody>
