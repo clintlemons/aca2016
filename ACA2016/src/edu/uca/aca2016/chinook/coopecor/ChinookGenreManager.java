@@ -30,29 +30,30 @@ import java.util.logging.Logger;
 public class ChinookGenreManager {
     Connection con = null;
     private static final Logger logger = Logger.getLogger(ChinookGenreManager.class.getName());
-    private static final String p_path = "C:\\ChinookDatabase1.4_Sqlite\\aca2016\\resources\\config\\coopecor\\ChinookManager.properties";
+    private static final String p_path = "C:\\ACA2016\\ChinookManager.properties";
     /**
      * Creates a connection to an instance of the Chinook database. 
      * 
      * The connection URL is obtained by reading a properties file located on
      * the classpath at resources/config/coopecor/ChinookGenreManager.properties
      */
-public ChinookGenreManager(){
+public ChinookGenreManager() {
         try{
             // attempt to read a "known" properties file that is on the classpath
             //Enumeration<URL> url = ChinookGenreManager.class.getClassLoader().getResources("config/coopecor/ChinookManager.properties");
             File prop = new File (p_path);
-            FileInputStream(prop);
             Properties props = new Properties();
-            props.load(p_path);
-            prop.close();
+            InputStream stream = new FileInputStream(prop);
+            props.load(stream);
+                  
+            stream.close();
             
-            logger.info("Connecting to database: " + props.getProperty("jbdc.connection"));
+            logger.info("Connecting to database: " + props.getProperty("db.connection"));
             
             // the properties file loaded, attempt to connect using the value of the "jdbc.connection" property
             Class.forName("org.sqlite.JDBC");
             if (this.con == null) {
-                con = DriverManager.getConnection(props.getProperty("jdbc.connection"));
+                con = DriverManager.getConnection(props.getProperty("db.connection"));
             }
         }
         catch(FileNotFoundException ex){
@@ -67,7 +68,7 @@ public ChinookGenreManager(){
         catch(ClassNotFoundException ex){
             logger.severe("Class not found: " + ex.getMessage());
         }
-}   
+    }   
  /**
      * Preforms a case insensitive search by name for a given genre.
      * 
@@ -117,6 +118,9 @@ public HashMap<Integer, String> getGenres() {
             
             while (rs.next()) {
                 genre.put(rs.getInt("GenreID"), rs.getString("Name"));
+                logger.info("GenreId " + rs.getInt("GenreID") +" Name "+ rs.getString("Name"));
+                
+                
             }
         }
         catch(SQLException ex){
@@ -225,9 +229,9 @@ public boolean deleteGenre(int id) {
     {
         ChinookGenreManager jdbc = new ChinookGenreManager();
         jdbc.getGenres();
-        jdbc.addGenre(p_path);
+        jdbc.addGenre("classic");
         System.out.println(jdbc.getGenreName(5));
-        jdbc.updateGenre(7, p_path);
+        jdbc.updateGenre(7, "jazz");
         jdbc.deleteGenre(8);
         
         
